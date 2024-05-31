@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit Card Fraud Detection</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Credit Card Fraud Detection</h1>
+        <form id="prediction-form">
+            <div class="form-group">
+                <label for="transaction-data">Transaction Data:</label>
+                <textarea class="form-control" id="transaction-data" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </form>
+        <div id="result" class="mt-3"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#prediction-form').submit(function(event) {
+                event.preventDefault();
+                var transactionData = $('#transaction-data').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/predict',
+                    data: transactionData,
+                    contentType: 'application/json',
+                    success: function(response) {
+                        var resultHTML = '<h3>Prediction Result:</h3><pre>' + JSON.stringify(response, null, 2) + '</pre>';
+                        $('#result').html(resultHTML);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

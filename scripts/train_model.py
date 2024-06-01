@@ -29,7 +29,7 @@ def load_data(engine):
 
 
 def train_and_save_models(X_train, y_train, X_val, y_val):
-    y = y.values.ravel()
+    y_train = y_train.values.ravel()
 
     models = {
         "IsolationForest": IsolationForest(contamination=0.01, random_state=42),
@@ -67,8 +67,8 @@ def train_and_save_models(X_train, y_train, X_val, y_val):
 def main():
     setup_logging()
     engine = connect_to_database()
-    X, y = load_data(engine)
-    train_and_save_models(X, y)
+    X_train, y_train, X_val, y_val = load_data(engine)
+    train_and_save_models(X_train, y_train, X_val, y_val)
 
 
 if __name__ == "__main__":

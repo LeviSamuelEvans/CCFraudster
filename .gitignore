@@ -1,4 +1,5 @@
 CCenv
 info.md
-
+models/*
 secrets/.env
+__pycache__/

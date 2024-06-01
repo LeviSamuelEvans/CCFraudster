@@ -7,7 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: psf/black@stable
+      - name: Set up Python
+        uses: actions/setup-python@v3
         with:
-          options: "--check --diff"
-          src: "**/*.py"
+          python-version: '3.12'
+      - name: Install black
+        run: pip install black
+      - name: Run black
+        run: black --check --diff .
